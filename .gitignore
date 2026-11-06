@@ -1,0 +1,23 @@
+
+# Secrets and credentials
+infra/secrets/
+.env
+.env.*
+!.env.example
+.aws/
+
+# Rust
+target/
+
+# Node
+node_modules/
+dist/
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

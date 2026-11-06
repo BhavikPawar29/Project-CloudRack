@@ -1,0 +1,37 @@
+name: cloudrack
+services:
+  postgres:
+    image: postgres:18
+    container_name: cloudrack-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cloudrack
+      POSTGRES_PASSWORD: cloudrack_dev_password
+      POSTGRES_DB: cloudrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  
+  
+  seaweedfs:
+    image: chrislusf/seaweedfs:latest
+    container_name: cloudrack-storage
+    command: server -s3 -s3.config=/etc/seaweedfs/s3.json
+    restart: unless-stopped
+    ports:
+      - "8333:8333"
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - seaweedfs_data:/data
+      - ./secrets/s3.json:/etc/seaweedfs/s3.json:ro
+
+
+
+volumes:
+  postgres_data:
+  seaweedfs_data:
+
+
